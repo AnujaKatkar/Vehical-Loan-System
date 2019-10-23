@@ -1,27 +1,20 @@
 package com.lti.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.lti.vehicleloan.dto.ApplicationFormDTO;
 import com.lti.vehicleloan.entity.LoanDetails;
+import com.lti.vehicleloan.entity.UserAddressDetails;
 import com.lti.vehicleloan.entity.UserCredentials;
 import com.lti.vehicleloan.entity.UserDocuments;
 import com.lti.vehicleloan.entity.UserPersonalDetails;
 import com.lti.vehicleloan.entity.VehicleDetails;
-import com.lti.vehicleloan.service.ApplicationFormService;
 import com.lti.vehicleloan.service.ApplicationFormServiceInterface;
 
 
@@ -35,20 +28,7 @@ public class ApplicationController {
 	@RequestMapping(path="/application-form.lti" , method=RequestMethod.POST)
 	public String applicationForm(ApplicationFormDTO applicationForm,Map Model) throws Exception {
 	
-		
-		/*System.out.println(aadharCard);
-		InputStream is = aadharCard.getInputStream();
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		while(true) {
-			int x = is.read();
-			if(x == -1) break;
-			os.write(x);
-		}
-		byte[] b = os.toByteArray();*/
-		//Blob panCard = applicationForm.getPanCard();
-		//Blob salarySlip = applicationForm.getSalarySlip();
-		//Blob photo = applicationForm.getPhoto();
-		
+	
 		UserDocuments userDocuments = new UserDocuments();
 		userDocuments.setAadhaarCard(applicationForm.getAadharCard().getBytes());
 		userDocuments.setPanCard(applicationForm.getPanCard().getBytes());
@@ -57,12 +37,19 @@ public class ApplicationController {
 		
 		UserCredentials userCredentials = new UserCredentials();
 		userCredentials.setEmail(applicationForm.getEmail());
-		userCredentials.setPassword(applicationForm.getPassword());
+		//userCredentials.setPassword(applicationForm.getPassword());
+		
+		UserAddressDetails userAddressDetails = new UserAddressDetails();
+		userAddressDetails.setBuilding(applicationForm.getBuilding());
+		userAddressDetails.setCity(applicationForm.getCity());
+		userAddressDetails.setState(applicationForm.getBuilding());
+		userAddressDetails.setPinCode(applicationForm.getPincode());
 		
 		VehicleDetails vehicleDetails = new VehicleDetails();
 		vehicleDetails.setCarMake(applicationForm.getCarMake());
 		vehicleDetails.setCarModel(applicationForm.getCarModel());
 		vehicleDetails.setEx_Showroom_Price(applicationForm.getExShowroomPrice());
+		
 		
 		
 		LoanDetails loanDetails = new LoanDetails();
@@ -82,15 +69,17 @@ public class ApplicationController {
 		userPersonalDetails.setUserDocuments(userDocuments);
 		userPersonalDetails.setVehicleDetails(vehicleDetails);
 		userPersonalDetails.setLoanDetails(loanDetails);
-		
+		userPersonalDetails.setUserAddressDetails(userAddressDetails);
 		
 		userDocuments.setUserPersonalDetails(userPersonalDetails);
 		userCredentials.setUserPersonalDetails(userPersonalDetails);
+		userAddressDetails.setUserPersonalDetails(userPersonalDetails);
 		vehicleDetails.setUserPersonalDetails(userPersonalDetails);
 		loanDetails.setUserPersonalDetails(userPersonalDetails);
 		
 		applicationFormService.saveUserPersonalDetails(userPersonalDetails);
+		
 
-		return "success.jsp";
+		return "/jsp/user-dashboard.jsp";
 	}
 }

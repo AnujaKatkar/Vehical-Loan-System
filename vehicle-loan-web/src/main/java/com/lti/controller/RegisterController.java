@@ -33,7 +33,7 @@ public class RegisterController {
 		uc.setPassword(data.getPassword());
 		upd.setUserCredentials(uc);
 		registerService.register(upd);
-		return "GetEligibiltyCriteria.jsp";
+		return "/jsp/login-register.jsp";
 	}
 	
 }

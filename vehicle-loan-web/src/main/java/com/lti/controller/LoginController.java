@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.lti.vehicleloan.entity.UserCredentials;
 import com.lti.vehicleloan.exception.DataNotFoundException;
@@ -14,6 +15,7 @@ import com.lti.vehicleloan.service.LoginServiceInterface;
 
 
 @Controller
+@SessionAttributes("userCredentials")
 public class LoginController {
 
 
@@ -22,20 +24,23 @@ public class LoginController {
 
 
 	@RequestMapping(path="/login.lti",method=RequestMethod.POST)
-	public String login(UserCredentials userCredentials,Map model)  	 {
+	public String login (UserCredentials userCredentials,Map model)  	 {
 		
-		boolean value;
+		UserCredentials userCredentialsFromDao = loginService.login(userCredentials);
 		try {
-			 value =loginService.login(userCredentials);
+			if(userCredentials.getPassword().equals(userCredentialsFromDao.getPassword())) {		
+				model.put("userCredentials", userCredentialsFromDao);
+				return "../jsp/user-dashboard.jsp";
+			}
+			else
+				model.put("invalidCredentials", "Invalid Credentials,Please try again!");
+				return "login-register.jsp";
 		}
-		catch(Exception e ) {
-			value=false;
+		catch(Exception dataNotFoundException) {
+			throw new DataNotFoundException("Invalid User");
 		}
-		if(value==true)
-			return "success.jsp";
-		else {
-			model.put("invalidCredentials", "You have entered Wrong password. Please try again!");
-			return "login.jsp";
-		}
+	}
+
+		
 	}
 }
