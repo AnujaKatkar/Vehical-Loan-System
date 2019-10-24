@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/application-form.css">
+    <link rel="stylesheet" href="application-form.css">
 </head>
 <!-- <body>
 

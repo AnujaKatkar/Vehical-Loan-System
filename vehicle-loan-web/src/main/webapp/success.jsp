@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Get Eligibilty Criteria</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>Check Eligibility Criteria</h1>
+<h1>APKA Swagat hai</h1>
+<h1>${Statement}</h1>
 </body>
 </html>

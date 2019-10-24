@@ -7,27 +7,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
+<form action="get-eligibility.lti" method="post">
 Age:<input type="number" name="age"><br/>
 Tenure:<input type="number" name="tenure" placeholder="Tenure"/>
 <div>
 Marital Status:
-<input type="radio" name="single" value="single" checked/>Single
-<input type="radio" name="married"value="married" >Married
+<input type="radio" name="maritalStatus" value="single" checked/>Single
+<input type="radio" name="maritalStatus"value="married" >Married
 </div>
 <div>
 Type of Employment:
-<input type="radio" name="salaried"value="salaried" checked/>salaried
-<input type="radio" name="self-employed"value="self-employed">Self-Employed
+<input type="radio" name="typeOfEmployment"value="salaried" checked/>salaried
+<input type="radio" name="typeOfEmployment"value="self-employed">Self-Employed
 </div>
 <div>
 Yearly Salary:
-<input type="number" name="yearlySalary" placeholder="Yearly-Salary"/>
+<input type="number" name="salary" placeholder="Yearly-Salary"/>
 </div>
-<div>
-Maximum EMI:
-<input type="number" name="maximumEMI" placeholder="Maximum-EMI"/>
-</div>
+
 <div>
 Principal Amount:
 <input type="number" name="principalAmount" placeholder="PrincipalAmount"/>
@@ -40,6 +37,7 @@ Previous Loan EMI:
 Rate of Interest:
 <input type="number" name="rateOfInterest" placeholder="RateOfInterest"/>
 </div>
+<input type="submit" value="SUBMIT">
 </form>
 </body>
 </html>

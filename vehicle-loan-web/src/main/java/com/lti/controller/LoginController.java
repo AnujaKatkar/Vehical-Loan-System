@@ -15,7 +15,7 @@ import com.lti.vehicleloan.service.LoginServiceInterface;
 
 
 @Controller
-@SessionAttributes("userCredentials")
+@SessionAttributes("userCredentialsSession")
 public class LoginController {
 
 
@@ -24,13 +24,13 @@ public class LoginController {
 
 
 	@RequestMapping(path="/login.lti",method=RequestMethod.POST)
-	public String login (UserCredentials userCredentials,Map model)  	 {
+	public String login (UserCredentials userCredentials,Map model)  throws DataNotFoundException	 {
 		
 		UserCredentials userCredentialsFromDao = loginService.login(userCredentials);
 		try {
 			if(userCredentials.getPassword().equals(userCredentialsFromDao.getPassword())) {		
-				model.put("userCredentials", userCredentialsFromDao);
-				return "../jsp/user-dashboard.jsp";
+				model.put("userCredentialsSession", userCredentialsFromDao);
+				return "user-dashboard.jsp";
 			}
 			else
 				model.put("invalidCredentials", "Invalid Credentials,Please try again!");
@@ -43,4 +43,4 @@ public class LoginController {
 
 		
 	}
-}
+
