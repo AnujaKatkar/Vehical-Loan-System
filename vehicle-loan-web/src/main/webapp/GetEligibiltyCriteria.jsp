@@ -39,6 +39,8 @@ Rate of Interest:
 </div>
 <input type="submit" value="SUBMIT">
 </form>
+<h1>${Statement}</h1>
+
 </body>
 </html>
 </html>

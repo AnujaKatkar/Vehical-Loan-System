@@ -12,7 +12,7 @@
                
                 <a class="active" href="home.html"><i class="fa fa-home icon" aria-hidden="true"> Home</i></a>
                 <a style="float:right" href="login-register.jsp">Login/Register</a>
-                <a style="float:left" href="emi-calculator.html">EMI Calculator</a>
+                <a style="float:left" href="EmiCalculator.html">EMI Calculator</a>
                 <a style="float:left" href="eligibility-criteria.html">Eligibility Criteria</a>
          <!--       <form action="application-form-prefiller.lti">
                 <input type="submit" value="Apply Loan"/>                
@@ -26,13 +26,13 @@
                 <div class="mySlides fade">
                         <div class="numbertext">1/3</div>
                         <!--div class="section-image" style="width:initial"-->
-                                <img  height="500" width="100%" src="../resources/mini-cooper.jpg" alt="New Car Loan">
+                                <img  height="500" width="100%" src="mini-cooper.jpg" alt="New Car Loan">
                                 <!--div class="text" >Tag1</div-->
                 </div>
                 <div class="mySlides fade">
                         <div class="numbertext">2/3</div>
                       
-                                <img height="500" width="100%" src="../resources/skoda-octavia.jpg" alt="New Car Loan">
+                                <img height="500" width="100%" src="skoda-octavia.jpg" alt="New Car Loan">
                                 <!--div class="text" >Tag2</div-->
                         </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="mySlides fade">
                         <div class="numbertext">3/3</div>
                        
-                                <img height="500" width="100%" src="../resources/pexels.jpeg" alt="New Car Loan"style="width:100%">
+                                <img height="500" width="100%" src="pexels.jpeg" alt="New Car Loan"style="width:100%">
                                 <!--div class="text" >Tag3</div-->
                 </div>
         </div>

@@ -16,7 +16,7 @@ html {
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 30px;
-    color: #FF8F00;
+    color: black;
     font-weight: 300;
     font-size: 24px;
     letter-spacing: 1px;
@@ -27,15 +27,18 @@ html {
 	background: #fff;
 	box-shadow: 0 0 3px #000;
 	margin: 30px auto;
-	max-width: 600px;
+	max-width: 500px;
 	overflow: hidden;
 	position: relative;
-	padding: 0;
+	padding-top:0;
 }
 
 .forms form { padding: 30px; }
+.radio-btn{
+    display: block;
+    margin-top: 0em;
 
-.forms.second-page { padding: 30px; }
+}
 .forms .tab-group {
 	list-style: none;
 	padding: 0;
@@ -65,12 +68,11 @@ html {
 .forms .tab-group li a:hover {
 	background: #dedfdf;
 	color: #666;
-	border-top: 3px solid #cf4141;
 }
 .forms .tab-group .active a {
 	background: #fff;
-	color: #000000;
-	border-top: 3px solid #cf4141;
+	color: #444;
+	border-top: 3px solid  #1AB297;
 }
 
 .forms input {
@@ -79,17 +81,7 @@ html {
     border-radius: 3px;
     display: block;
     width: 100%;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-    outline: none;
-}
-.select1{
-	padding: 10px 20px;
-    border: 1px solid #999;
-    border-radius: 3px;
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
+	margin-bottom:5%;
     box-sizing: border-box;
     outline: none;
 }
@@ -99,11 +91,12 @@ html {
 	background: lightgrey;
 }
 
+
 button,
   rerun-button {
     padding: 10px 20px;
     border-radius: 3px;
-		background: #1AB297;
+	background: #1AB297;
     color: white;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -144,30 +137,5 @@ button,
 	transition: all 0.4s ease-in-out;
 }
 .forms .button:hover, .button:focus { background: #56ae26; }*/
-.text-p { text-align: center; }
-.text-p a { color: #1383ea; }
-
-.input-container {
-    display: inline-block;
-    width: 100%;
-    /* margin-bottom: 15px; */
-  }
-.icon {
-    padding: 10px;
-    color: grey;
-    text-align: center;
-	}
-	p
-	{
-	color: red;
-	display: block;
-
-	}
-	.nameinput{
-		display: inline;
-	}
-	.error{
-		margin-top: -10px;
-    margin-left: 44px;
-	}
-	
+/*.text-p { text-align: center; }
+.text-p a { color: #1383ea; }*/

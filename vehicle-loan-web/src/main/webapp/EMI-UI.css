@@ -1,0 +1,129 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html {
+    background-color:lightgrey;
+    min-height: 100%;
+    font-family: "Roboto", sans-serif;
+  }
+
+
+  .title {
+		padding-top: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #FF8F00;
+    font-weight: 300;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  
+.forms {
+	background: #fff;
+	box-shadow: 0 0 3px #000;
+	margin: 30px auto;
+	 max-width: 775px;
+	overflow: hidden;
+	position: relative;
+	padding: 0;
+}
+
+.forms form { padding: 30px; 
+	}
+
+/* .forms.second-page { padding: 30px; } */
+.forms .tab-group {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+		
+}
+.second-page{
+	padding-left:10px; 
+}
+.tab{
+	display : inline-block;
+	width: 24%;
+}
+.forms .tab-group:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.forms .tab-group li a {
+	display: block;
+	text-decoration: none;
+	/* padding: 10px; */
+	padding-bottom: 40px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-left: 10px;
+	height: 60px;
+	background: #e5e6e7;
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+	float: left;
+	width: 100%;
+	text-align: center;
+	border-top: 3px solid transparent;
+	-moz-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+.forms .tab-group li a:hover {
+	background: #ffffff;
+	color: #666;
+
+	/* margin-bottom: 10px; */
+	border-top: 3px solid #cf4141;
+}
+.forms .tab-group .active a {
+	background: #fff;
+	color: #444;
+	border-top: 3px solid #03af0c;
+}
+
+.forms input {
+	padding: 10px 20px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.forms input:focus {
+	
+	background: lightgrey;
+}
+
+
+
+  .text-center {
+    text-align: center;
+  }
+
+
+.text-p { text-align: center; }
+
+
+
+
+	p
+	{
+	color: rgb(12, 11, 11);
+	display: block;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+	}
+	
+	

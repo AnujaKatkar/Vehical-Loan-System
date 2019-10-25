@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+  <script src="emiCalc.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="EMI-UI.css"/>
+  <style type="text/css" media="screen">
+
+    .slider-width{
+        width: 45px;
+    }
+
+</style>
+</head>
+<body>
+
+  <div class="forms" style="max-width:1000px; max-height: 800px;">
+    <div style ="padding-bottom : 15px; padding-top : 10px; text-align : center" >
+  <h2 >EMI Calculator</h2>
+  </div>
+  <ul class="tab-group">
+ 
+    <li class="tab" active><a href="#newVehicle" id="newVehicle">New Vehicle EMI Calculator</a></li>
+    <li class="tab" ><a href="#oldVehicle" id="oldVehicle">Old Vehicle EMI Calculator</a></li>
+  </ul>
+
+  <div class="first-page">
+    
+      <div style = "float: left ; width : 50% ; padding-left : 10px" >
+      <h3 class="title" >Enter New Vehicle details:</h3>
+       <br>
+
+       
+       <p>Vehicle price : </p>
+            
+              <input style="width: 100% " value="0"   id="loanAmount"  type="range" min="0" max= "300000"  step="5000"  oninput="outputUpdate(this.value)">
+              
+              <output for="loanAmount" id="loanAmount1"> 0 </output>
+       <br>
+
+       <!-- <p>Enter Down payment amount :  
+              <input style="width: 40%" type="text" id="downPayment"  /> </p>
+              <br> -->
+
+       <p>Rate of Interest</p>
+              
+              <input style="width: 100%" value="0"  id="ROI" type="range" min="5" max="15" step="0.5" oninput="outputUpdate1(this.value)">
+              
+              <output for="ROI" id="ROI1"> 5 </output>
+              <br>     
+
+       <p>Tenure(in months) </p>
+              
+              <input style="width: 100%" value="0" id="tenure" type="range" min="3" max="60" step="3" oninput="outputUpdate2(this.value)">
+              
+              <output for="tenure" id="tenure1">3</output>
+              <br>  
+       
+    </div>
+    <div style = "float: right ; width : 40%">  
+      <!-- <h3 id= "downPayment1"></h3> -->
+           <h3 id="EMI"></h3>
+           <h3 id="total"></h3> 
+           <h3 id="Interest"></h3>  
+           
+           <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+           
+    </div>
+  </div>
+  
+
+  
+<div class="second-page" >
+    <div style = "float: left ; width : 50%">
+      <h3 class="title" >Enter Old Vehicle details:</h3>
+        <p>Vehicle price : </p>
+              
+                <input style="width: 100%" value="0"   id="loanAmount2"  type="range" min="0" max= "300000"  step="5000"  oninput="outputUpdate3(this.value)">
+                
+                <output for="loanAmount2" id="loanAmount3"> 0 </output>
+
+        <!-- <p>Enter Down payment amount :  
+              <input style="width: 40%" type="text" id="downPayment2"  /> </p> 
+              <br>
+   -->
+         <p>Rate of Interest</p>
+                
+                <input style="width: 100%" value="0"  id="ROI2" type="range" min="8" max="18" step="0.5" oninput="outputUpdate4(this.value)">
+                
+                <output for="ROI2" id="ROI3"> 8 </output>
+                <br>     
+  
+         <p>Tenure(in months) </p>
+                
+                <input style="width: 100%" value="0" id="tenure2" type="range" min="3" max="60" step="3" oninput="outputUpdate5(this.value)">
+                
+                <output for="tenure2" id="tenure3"> 3 </output>
+                <br>  
+    </div>
+    <div  style = "float: right ; width : 40%">
+             
+             <h3 id="EMI1"></h3>
+             <h3 id="total1"></h3> 
+             <h3 id="Interest1"></h3>  
+             <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+             <!-- <div id="chartContainer1" style="height: 370px; width: 100%;"></div> -->
+      </div>
+    </div>  
+</div>
+
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+  
+$(document).ready(function(){
+	$('.first-page').show();
+	$('.second-page').hide();
+
+	
+	
+	$( "#oldVehicle").click(
+        function() {
+                $( this ).css('border-right','none');
+                $( this ).css('border-left','1px solid black');
+                $( this ).css('border-bottom','none');
+                $(this).css('border-top','3px solid  #ff0000');
+                $( this ).css('background-color','#fff');
+             
+        //          $( "#newVehicle" ).css('border-top','3px solid  #1AB297');
+				//  $( "#newVehicle" ).css('border-left','0px');
+		
+		}
+		
+    );
+
+	
+	$( "#newVehicle" ).click(
+        function() {
+                $( this ).css('border-right','none');
+                $( this ).css('border-left','1px solid black');
+                $( this ).css('border-bottom','none');
+                $(this).css('border-top','3px solid  #ff0000');
+                $( this ).css('background-color','#fff');
+                
+				// $( "#newVehicle" ).css('border-top','3px solid  #1AB297');
+
+				// $( "#oldVehicle" ).css('border-top','3px solid  #1AB297');
+				// $( "#newVehicle" ).css('border-left','0px');
+				// $( "#oldVehicle").css('border-left','0px');
+               
+
+        }
+    );
+	
+
+
+	
+
+
+$('#newVehicle').click(function(){
+	$('.first-page').show();
+	$('.second-page').hide();
+	
+	
+	
+});
+$('#oldVehicle').click(function(){
+	$('.first-page').hide();
+	$('.second-page').show();
+
+
+});
+
+
+
+});
+
+</script>
+</html>

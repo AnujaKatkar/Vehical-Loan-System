@@ -1,17 +1,27 @@
 package com.lti.controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -23,7 +33,9 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 import com.lti.vehicleloan.dto.ApplicationFormDTO;
+import com.lti.vehicleloan.entity.ApplicationForm;
 import com.lti.vehicleloan.entity.LoanDetails;
 import com.lti.vehicleloan.entity.UserAddressDetails;
 import com.lti.vehicleloan.entity.UserCredentials;
@@ -43,6 +55,7 @@ public class ApplicationController {
 
 	@RequestMapping(path="/application-form.lti" , method=RequestMethod.POST)
 	public String applicationForm(ApplicationFormDTO applicationForm,HttpServletRequest request,Map Model) throws Exception {
+	
 	
 
 //		UserCredentials userCredentialsSession = (UserCredentials) request.getSession().getAttribute("userCredentialSession");
@@ -96,12 +109,11 @@ public class ApplicationController {
 		vehicleDetails.setUserPersonalDetails(userPersonalDetails);
 		loanDetails.setUserPersonalDetails(userPersonalDetails);
 		
-		applicationFormService.saveUserPersonalDetails(userPersonalDetails);
 		
 		
 		try {
 
-			String fileNmae= "D:\\Documents\\"+userPersonalDetails.getUserId()+userPersonalDetails.getName()+".pdf";
+			String fileNmae= "D:\\Documents\\"+applicationForm.getEmail()+".pdf";
 			Document document = new Document();
 			
 			PdfWriter.getInstance(document, new FileOutputStream(fileNmae));
@@ -109,6 +121,9 @@ public class ApplicationController {
 			Paragraph para = new Paragraph("Application Form",FontFactory.getFont(FontFactory.TIMES_ROMAN,18, Font.BOLD, BaseColor.BLACK));
 			para.setAlignment(Element.ALIGN_CENTER);
 			document.add(para);
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
 			PdfPTable table = new PdfPTable(1);
 			PdfPCell c = new PdfPCell(new Phrase("User Details"));
 			c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -116,23 +131,66 @@ public class ApplicationController {
 			table.setHeaderRows(1);
 			
 			
-			table.addCell("Name  : "+ userPersonalDetails.getName());
-			table.addCell("Age  : "+(String.valueOf(userPersonalDetails.getAge())));
-			table.addCell("Gender : "+userPersonalDetails.getGender());
-			table.addCell("Mobile Number  : "+userPersonalDetails.getMobileNumber());
-			table.addCell("Type Of Employment : "+userPersonalDetails.getTypeOfEmployement());
-			table.addCell("Existing EMI : "+(String.valueOf(userPersonalDetails.getExistingEmi())));
-			table.addCell("Yearly Salary : "+String.valueOf(userPersonalDetails.getYearlySalary()));
+			table.addCell("Name : "+ applicationForm.getFirstName()+" "+applicationForm.getLastName());
+			table.addCell("Age : "+(String.valueOf(applicationForm.getAge())));
+			table.addCell("Gender : "+applicationForm.getGender());
+			table.addCell("Mobile Number : "+applicationForm.getMobileNumber());
+			table.addCell("Type Of Employment : "+applicationForm.getTypeOfEmployment());
+			table.addCell("Existing EMI : "+(String.valueOf(applicationForm.getExistingEmi())));
+			table.addCell("Yearly Salary : "+String.valueOf(applicationForm.getSalary()));
 			document.add(table);
 			
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
+			PdfPTable table1 = new PdfPTable(1);
+			PdfPCell c1 = new PdfPCell(new Phrase("Loan Details"));
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table1.addCell(c1);
+			table1.setHeaderRows(1);
+			
+			table1.addCell("Loan Amount : " + applicationForm.getLoanAmount());
+			table1.addCell("Loan Tenure " + applicationForm.getLoanTenure());
+			table1.addCell("Rate of Interest : " + applicationForm.getRateOfInterest());
+			document.add(table1);
+			
+			document.add(new Paragraph(" "));
+			document.add(new Paragraph(" "));
+			
+			PdfPTable table2 = new PdfPTable(1);
+			PdfPCell c2 = new PdfPCell(new Phrase("Vehicle Details"));
+			c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table2.addCell(c2);
+			table2.setHeaderRows(1);
+			
+			table2.addCell("Vehicle Make : "+applicationForm.getCarMake());
+			table2.addCell("Vehicle Model : "+applicationForm.getCarModel());
+			table2.addCell("Vehicle Ex-showroom price : "+applicationForm.getExShowroomPrice());
+			
+			document.add(table2);
+
 			document.close();
+			
 			System.out.println("Pdf Generated");
 		}
 		catch(Exception e){
 			
 		}
+		 File file = new File("D:\\Documents\\"+applicationForm.getEmail()+".pdf");
+		 String path = request.getServletContext().getRealPath("/") + "Documents/" + applicationForm.getEmail() +".pdf";
+		 File destfile = new File(path);
+		 
+		 FileCopyUtils.copy(file,  destfile);
+		 
+		ApplicationForm userApplicationForm = new ApplicationForm();
+		//userApplicationForm.setApplicationForm(applicationFormBytesArray);
+		userApplicationForm.setUserPersonalDetails(userPersonalDetails);
+		userPersonalDetails.setUserApplicationForm(userApplicationForm);
+		applicationFormService.saveUserPersonalDetails(userPersonalDetails);
 		
-
 		return "user-dashboard.jsp";
 	}
-}
+	
+	}
+	
+

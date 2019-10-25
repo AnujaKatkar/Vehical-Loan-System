@@ -8,6 +8,5 @@
 </head>
 <body>
 <h1>APKA Swagat hai</h1>
-<h1>${Statement}</h1>
 </body>
 </html>

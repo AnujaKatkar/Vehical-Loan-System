@@ -15,7 +15,7 @@ import com.lti.vehicleloan.service.LoginServiceInterface;
 
 
 @Controller
-@SessionAttributes("userCredentialsSession")
+@SessionAttributes({"userCredentialsSession","loginFlag"})
 public class LoginController {
 
 
@@ -30,7 +30,12 @@ public class LoginController {
 		try {
 			if(userCredentials.getPassword().equals(userCredentialsFromDao.getPassword())) {		
 				model.put("userCredentialsSession", userCredentialsFromDao);
-				return "user-dashboard.jsp";
+				model.put("loginFlag",1);
+//				//if(userCredentials.getUserPersonalDetails().getUserApplicationForm().getApplicationFormNumber()!=0) {
+//					return "user-dashboard.jsp";
+//				}
+//				else
+				return "applicationForm.jsp";
 			}
 			else
 				model.put("invalidCredentials", "Invalid Credentials,Please try again!");

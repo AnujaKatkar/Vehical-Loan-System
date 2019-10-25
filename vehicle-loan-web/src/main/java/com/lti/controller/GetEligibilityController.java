@@ -22,7 +22,11 @@ public class GetEligibilityController {
 		String value = getEligibilityService.verifyDetails(getEligibility);
 		
 		model.put("Statement", value);
-		
-		return "success.jsp";
+		if (value.equals("HURRAH!!  YOU ELIGIBLE FOR LOAN")){
+			return "application-form.jsp";
+		}
+		else {
+		return "getEligibilityCriteria.jsp";
+		}
 	}
 }

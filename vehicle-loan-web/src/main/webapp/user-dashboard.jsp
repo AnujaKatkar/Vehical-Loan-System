@@ -1,7 +1,7 @@
 <%@page import="com.lti.vehicleloan.entity.UserCredentials"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,9 +15,10 @@
 </head>
 <body>
 <%UserCredentials user = (UserCredentials) request.getSession().getAttribute("userCredentialsSession"); %>
-            <div class="user-dashboard">
+<%--${ sessionScope.userCredentialsSession.name } --%>
+           <div class="user-dashboard">
                     <div style="float:right;"><a href="home.html"><img src="icon.png" width="40px" height="40px"aria-hidden="true"> SignOut</a></div>
-                    <div style="float:left; color:white;margin-left:15px;margin-top: 10px">Hi!  <%=user.getUserPersonalDetails().getName() %>
+                    <div style="float:left; color:white;margin-left:15px;margin-top: 10px">Hi!  <%=user.getUserPersonalDetails().getName() %></div>  <!--Insert user name from session variable -->
             </div>
             <section class="cards-section">
                 <h3 class="title"> User details..</h3>
@@ -26,7 +27,7 @@
                         <div class="dash-card">
                             <img src="application-form.png" style="width:50px ; height:50px;">
                             <p> Application-Form</p>
-                            <button class="card-button">More Details</button>
+                            <a href="Documents/<%= user.getEmail() %>.pdf">View Details</a>
                         </div>
                     </div>
 
@@ -42,7 +43,7 @@
                                 <div class="dash-card">
                                     <img src="card-loan.svg" style="width:50px ; height:50px;">
                                     <p>New Loan</p>
-                                    <form action="success.jsp">
+                                    <form action="GetEligibiltyCriteria.jsp">
                                     <button type="submit" class="card-button">More Details</button>
                                     </form>
                                 </div>
@@ -52,7 +53,7 @@
                                     <div class="dash-card">
                                         <img src="card-user-details.png" style="width:50px ; height:50px;">
                                         <p> your Details</p>
-                                        <button  id="userDetails" class="card-button">More Details</button>
+                                         <button  id="userDetails" class="card-button">More Details</button>
                                     </div>
                                 </div>
                 </div>
@@ -85,12 +86,15 @@
                     	$("#details").show();
   					//$("#userDetails").hide();
   							});
-            	  
-            	  
 				});
               
               
-
-                
+              function load() {
+            	  alert("ok");
+              	var blob = new Blob(<%=user.getUserPersonalDetails().getUserApplicationForm().getApplicationForm() %>, {type : 'application/pdf'});
+              	var pdfURL = URL.createObjectURL(blob);
+					document.location.href=pdfURL;
+              }
+                  
 	</script>
 </html>
